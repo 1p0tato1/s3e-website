@@ -33,21 +33,21 @@ onMounted(() => {
       <div class="about__head">
         <p class="eyebrow">Le bureau</p>
         <h2 ref="statement" class="about__statement reveal">
-          Bureau d'Études Technique S3E, fondé en 2000 à Sousse — quatre pôles, une seule exigence :
-          des ouvrages <em>sûrs</em>, <em>conformes</em>, livrés.
+          Bureau d'Études Technique S*3*E, fondé en 2000 à Sousse. <br /> 4 spécialités,  1 exigence : <br />
+          des ouvrages <em>sûrs</em>, <em>conformes</em> et <em>livrés</em>.
         </h2>
       </div>
 
       <div class="about__grid">
         <div ref="text" class="about__text reveal">
           <p>
-            Agréé par le <strong>Ministère de l'Équipement et de l'Habitat</strong>, S3E intervient
-            sur quatre domaines complémentaires : Structure &amp; Génie Civil, VRD, Électricité,
+            Agréé par le <strong>Ministère de l'Équipement et de l'Habitat</strong>, S*3*E intervient
+            sur 4 domaines complémentaires : Structure &amp; Génie Civil, VRD, Électricité,
             Sécurité Incendie.
           </p>
           <p>
-            Plus de deux décennies de projets menés dans toute la Tunisie — et au-delà, en Algérie,
-            au Tchad, en France et aux États-Unis via des partenaires internationaux.
+            Plus de deux décennies de projets menés dans toute la Tunisie et au-delà, en Algérie,
+            au Tchad et en France via des partenaires internationaux.
           </p>
         </div>
 
@@ -68,20 +68,12 @@ onMounted(() => {
       </div>
 
       <div ref="badge" class="about__badge reveal">
-        <svg class="stamp" viewBox="0 0 160 160" aria-hidden="true">
-          <defs>
-            <path id="stampCircle" d="M 80,80 m -60,0 a 60,60 0 1,1 120,0 a 60,60 0 1,1 -120,0" />
-          </defs>
-          <circle cx="80" cy="80" r="74" fill="none" stroke="var(--navy)" stroke-width="1.2" />
-          <circle cx="80" cy="80" r="56" fill="none" stroke="var(--navy)" stroke-width="1" />
-          <text font-size="7.6" letter-spacing="2.4" fill="var(--navy)">
-            <textPath href="#stampCircle" startOffset="2%">
-              MINISTÈRE DE L'ÉQUIPEMENT ET DE L'HABITAT •
-            </textPath>
-          </text>
-          <text x="80" y="78" text-anchor="middle" class="stamp__title">AGRÉÉ</text>
-          <text x="80" y="94" text-anchor="middle" class="stamp__sub">BUREAU D'ÉTUDES · TUNISIE</text>
-        </svg>
+        <div class="about__badge-marks">
+          <div class="about__badge-logo">
+            <img src="../../assets/ministere-equipement.png" alt="Ministère de l'Équipement et de l'Habitat" />
+          </div>
+        </div>
+
         <p class="about__badge-text">
           Bureau d'études technique agréé par le Ministère de l'Équipement et de l'Habitat,
           habilité à intervenir sur les projets publics et privés à l'échelle nationale.
@@ -160,39 +152,94 @@ onMounted(() => {
 
 .about__badge {
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 2rem;
   margin-top: 4rem;
-  padding-block: 3rem;
+  padding-block: 3.5rem;
   border-top: 1px solid rgba(20, 20, 20, 0.12);
-  flex-wrap: wrap;
+  text-align: center;
+}
+
+.about__badge-marks {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.75rem;
+}
+
+.about__badge-logo {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 150px;
+  padding: 16px;
+  border-radius: 50%;
+  background: var(--paper-dim);
+  border: 1px solid rgba(var(--navy-rgb), 0.14);
+}
+
+.about__badge-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.about__badge-divider {
+  width: 1px;
+  height: 70px;
+  flex-shrink: 0;
+  background: rgba(20, 20, 20, 0.14);
 }
 
 .stamp {
-  width: 108px;
-  height: 108px;
+  width: 148px;
+  height: 148px;
   flex-shrink: 0;
-  transform: rotate(-8deg);
-  opacity: 0.9;
+  transform: rotate(-6deg);
+  opacity: 0.92;
+}
+
+.stamp__ring {
+  fill: none;
+  stroke: var(--ember);
+  stroke-width: 1.2;
+}
+
+.stamp__ring--inner {
+  stroke-width: 1;
+}
+
+.stamp__ring--dashed {
+  stroke-width: 0.75;
+  stroke-dasharray: 2 3;
+  opacity: 0.65;
+}
+
+.stamp__path-text {
+  fill: var(--ember);
 }
 
 .stamp__title {
   font-family: var(--font-mono);
-  font-size: 15px;
-  font-weight: 600;
-  fill: var(--navy);
-  letter-spacing: 0.05em;
+  font-size: 16px;
+  font-weight: 700;
+  fill: var(--navy-night);
+  letter-spacing: 0.06em;
 }
 
 .stamp__sub {
   font-family: var(--font-mono);
-  font-size: 6px;
-  fill: var(--navy);
-  letter-spacing: 0.05em;
+  font-size: 6.5px;
+  fill: var(--navy-night);
+  letter-spacing: 0.08em;
 }
 
 .about__badge-text {
   max-width: 30rem;
+  margin-inline: auto;
   font-size: var(--fs-small);
   color: rgba(20, 20, 20, 0.65);
 }
