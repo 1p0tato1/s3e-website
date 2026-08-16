@@ -7,30 +7,26 @@ const domains = [
   {
     index: '01',
     title: 'Structure & Génie Civil',
-    desc: "Conception et calcul des structures porteuses — béton armé, charpente métallique, fondations — pour bâtiments publics, industriels et résidentiels.",
+    desc: "Conception et calcul des structures porteuses  béton armé, charpente métallique, fondations pour bâtiments publics, industriels et résidentiels.",
     tags: ['Béton armé', 'Charpente métallique', 'Fondations', 'Calcul de structures'],
-    accent: 'navy',
   },
   {
     index: '02',
     title: 'VRD',
     desc: "Voirie et réseaux divers : voirie, assainissement, adduction d'eau potable, réseaux enterrés et aménagement de lotissements.",
     tags: ['Voirie', 'Assainissement', "Adduction d'eau", 'Lotissements'],
-    accent: 'navy',
   },
   {
     index: '03',
     title: 'Électricité',
     desc: 'Installations électriques courants forts et faibles, éclairage intérieur et public, postes de transformation, études et suivi de chantier.',
     tags: ['Courants forts', 'Courants faibles', 'Éclairage', 'Postes HTA/BT'],
-    accent: 'volt',
   },
   {
     index: '04',
     title: 'Sécurité Incendie',
-    desc: "Désenfumage, détection et extinction automatique, sprinklage, conformité réglementaire — dossiers de sécurité pour ERP et sites industriels.",
+    desc: "Désenfumage, détection et extinction automatique, sprinklage, conformité réglementaire, dossiers de sécurité pour ERP et sites industriels.",
     tags: ['Désenfumage', 'Détection incendie', 'Sprinklage', 'Dossiers ERP'],
-    accent: 'ember',
   },
 ]
 
@@ -55,10 +51,9 @@ onMounted(() => {
         :key="d.index"
         ref="rows"
         class="expertise__row reveal"
-        :class="`expertise__row--${d.accent}`"
       >
         <div class="container expertise__row-inner">
-          <span class="expertise__index">Dossier {{ d.index }}</span>
+          <span class="expertise__index">Expertise {{ d.index }}</span>
           <h3 class="expertise__name">{{ d.title }}</h3>
           <p class="expertise__desc">{{ d.desc }}</p>
           <ul class="expertise__tags">
@@ -99,10 +94,6 @@ onMounted(() => {
   background: rgba(var(--navy-rgb), 0.05);
 }
 
-.expertise__row--ember:hover {
-  background: rgba(var(--ember-rgb), 0.06);
-}
-
 .expertise__row-inner {
   display: grid;
   grid-template-columns: 1fr;
@@ -117,11 +108,9 @@ onMounted(() => {
   text-transform: uppercase;
   color: var(--navy);
 }
-
 .expertise__row--ember .expertise__index {
   color: var(--ember);
-}
-
+} 
 .expertise__name {
   font-size: clamp(1.7rem, 2.4vw, 2.5rem);
   color: var(--ink);
@@ -160,7 +149,20 @@ onMounted(() => {
   }
 
   .expertise__tags {
+    grid-column: 3;
     justify-content: flex-end;
+    text-transform: uppercase;
+  }
+
+  .expertise__tags li:hover {
+    color: var(--volt);
+    border-color: var(--volt);
+    padding: 0.3em 0.7em;
+    transition: background-color 0.4s var(--ease-out);
+    transition: border-color 0.4s var(--ease-out);
+    transition: text-transform 0.4s var(--ease-out);
+    transition: padding 0.4s var(--ease-out);
+    cursor: pointer;
   }
 }
 </style>
