@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { gsap, ScrollTrigger, drawPath } from '../../composables/scrollFx'
+import { gsap, ScrollTrigger } from '../../composables/scrollFx'
 
-const titleWords = ['Structure.', 'Électricité.', 'Sécurité <em>incendie</em>.']
+const titleWords = ['S*3*E :', 'Société', 'Etudes', 'Equipements', 'Executions']
 const titleLines = ref<HTMLElement[]>([])
 const lede = ref<HTMLElement | null>(null)
 const actions = ref<HTMLElement | null>(null)
 const eyebrow = ref<HTMLElement | null>(null)
 const stripes = ref<HTMLElement[]>([])
-const boltPath = ref<SVGPathElement | null>(null)
 const panel = ref<HTMLElement | null>(null)
 const heroRoot = ref<HTMLElement | null>(null)
 
@@ -29,10 +28,6 @@ onMounted(() => {
       { scaleX: 0, transformOrigin: 'left center', duration: 0.9, stagger: 0.06 },
       '-=1.1',
     )
-
-  if (boltPath.value) {
-    drawPath(boltPath.value, { immediate: true, duration: 1.4, delay: 0.5 })
-  }
 
   if (panel.value && heroRoot.value) {
     gsap.to(panel.value, {
@@ -72,7 +67,8 @@ onMounted(() => {
         </h1>
 
         <p ref="lede" class="hero__lede">
-          Structure &amp; génie civil, VRD, électricité, sécurité incendie — depuis 2000, S3E conçoit
+          <strong>Structure &amp; Génie Civil, VRD, Électricité, Sécurité Incendie</strong> <br>
+          Depuis 2000, on conçoit
           et supervise les projets qui tiennent debout, en Tunisie et à l'international.
         </p>
 
@@ -86,17 +82,7 @@ onMounted(() => {
         <div class="hero__panel-stripes" aria-hidden="true">
           <span v-for="n in 9" :key="n" />
         </div>
-        <svg class="hero__panel-bolt" viewBox="0 0 200 260" aria-hidden="true">
-          <path
-            ref="boltPath"
-            d="M118 8 L52 128 L96 128 L74 252 L164 108 L112 108 Z"
-            fill="none"
-            stroke="var(--volt)"
-            stroke-width="3.5"
-            stroke-linejoin="round"
-            stroke-linecap="round"
-          />
-        </svg>
+        <img src="../../assets/S3EE-NoBG.png" alt="Logo-S3E" class="hero__panel-image">
       </div>
     </div>
 
@@ -189,7 +175,8 @@ onMounted(() => {
   position: relative;
   min-height: 320px;
   border-radius: var(--radius);
-  background: linear-gradient(155deg, var(--navy) 0%, var(--navy-night) 100%);
+  background: var(--paper);
+  border: 1px solid rgba(var(--navy-rgb), 0.12);
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -207,13 +194,15 @@ onMounted(() => {
 
 .hero__panel-stripes span {
   height: 1px;
-  background: rgba(247, 246, 242, 0.14);
+  background: rgba(var(--navy-rgb), 0.1);
 }
 
-.hero__panel-bolt {
+.hero__panel-image {
   position: relative;
-  width: 42%;
-  filter: drop-shadow(0 0 24px rgba(var(--volt-rgb), 0.35));
+  z-index: 1;
+  width: min(70%, 360px);
+  height: auto;
+  filter: drop-shadow(0 18px 40px rgba(var(--navy-rgb), 0.18));
 }
 
 .hero__cue {
@@ -249,6 +238,9 @@ onMounted(() => {
   }
   .hero__panel {
     min-height: 560px;
+  }
+  .hero__panel-image {
+    width: min(60%, 460px);
   }
   .hero__cue {
     display: flex;
