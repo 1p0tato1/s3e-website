@@ -1,47 +1,29 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import { onMounted } from 'vue'
+import { useLenis } from './composables/useLenis'
+import AppNav from './components/AppNav.vue'
+import HeroSection from './components/sections/HeroSection.vue'
+import AboutSection from './components/sections/AboutSection.vue'
+import ExpertiseSection from './components/sections/ExpertiseSection.vue'
+import EngineersSection from './components/sections/EngineersSection.vue'
+import ProjectsSection from './components/sections/ProjectsSection.vue'
+import ContactSection from './components/sections/ContactSection.vue'
+import AppFooter from './components/AppFooter.vue'
+
+onMounted(() => {
+  useLenis()
+})
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
+  <AppNav />
   <main>
-    <TheWelcome />
+    <HeroSection />
+    <AboutSection />
+    <ExpertiseSection />
+    <EngineersSection />
+    <ProjectsSection />
+    <ContactSection />
   </main>
+  <AppFooter />
 </template>
-
-<style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
-</style>

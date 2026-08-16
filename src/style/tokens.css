@@ -1,0 +1,43 @@
+:root {
+  /* Palette — dérivée du logo S3E */
+  --navy: #0a2681;
+  --navy-light: #1c3aa8;
+  --navy-night: #051342;
+  --paper: #f7f6f2;
+  --paper-dim: #ece9e0;
+  --ink: #141414;
+  --volt: #f2b807;
+  --volt-soft: #ffd85c;
+  --ember: #d9531e;
+  --ember-deep: #b8391f;
+
+  /* rgba helpers */
+  --navy-rgb: 10, 38, 129;
+  --navy-night-rgb: 5, 19, 66;
+  --ink-rgb: 20, 20, 20;
+  --volt-rgb: 242, 184, 7;
+  --ember-rgb: 217, 83, 30;
+  --paper-rgb: 247, 246, 242;
+
+  /* Type */
+  --font-display: 'Fraunces', 'Iowan Old Style', serif;
+  --font-body: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
+
+  --fs-hero: clamp(3rem, 3.2vw + 2.2rem, 7.2rem);
+  --fs-h1: clamp(2.4rem, 2vw + 1.8rem, 4.4rem);
+  --fs-h2: clamp(1.8rem, 1.4vw + 1.4rem, 3rem);
+  --fs-h3: clamp(1.3rem, 0.6vw + 1.1rem, 1.8rem);
+  --fs-body: clamp(1rem, 0.2vw + 0.95rem, 1.15rem);
+  --fs-small: 0.85rem;
+  --fs-micro: 0.72rem;
+
+  /* Layout */
+  --edge: clamp(1.25rem, 4vw, 4rem);
+  --max-w: 1440px;
+  --radius: 2px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
