@@ -8,7 +8,6 @@ interface Engineer {
   name: string
   initials: string
   title: string
-  arabic?: string
   specialties: string[]
   bio: string
   phones: string[]
@@ -23,8 +22,8 @@ const engineers: Engineer[] = [
     initials: 'SF',
     title: 'Ingénieur Conseil — Expert Judiciaire auprès des Tribunaux',
     specialties: ['Électricité', 'Sécurité Incendie'],
-    bio: "Ingénieur Principal en Génie Électrique diplômé de l'ENIM (1996), Sofiane Fayala fonde S3E en 2000 et en assure la direction depuis. Expert Judiciaire auprès des tribunaux depuis 2023, il s'est formé auprès de grands industriels internationaux — Schneider Electric (France), ABB (Allemagne), Fermax (Espagne) — pour affiner son expertise en électricité et sécurité incendie.",
-    phones: ['+216 73 845 105', '+216 23 402 862'],
+    bio: "Ingénieur Principal en Génie Électrique diplômé de l'ENIM (1996), Sofiane Fayala fonde S3E en 2000 et en assure la direction depuis. Expert Judiciaire auprès des tribunaux depuis 2023, il s'est formé auprès de grands industriels internationaux — Schneider Electric (France), ABB (Allemagne), Fermax (Espagne) — pour affiner son expertise en électricité et en sécurité incendie.",
+    phones: ['Fixe: (+216) 73 845 105', 'Mobile: (+216) 23 402 862'],
     email: 'sofien.fayala@yahoo.fr',
     linkedin: 'https://www.linkedin.com/in/sofiane-fayala-4983b836/',
     whatsapp: 'https://wa.me/21623402862',
@@ -33,10 +32,9 @@ const engineers: Engineer[] = [
     name: 'Imen Fayala Grissi',
     initials: 'IF',
     title: 'Ingénieur Conseil Agréé & Expert Judiciaire | Génie Civil',
-    arabic: 'خبير لدى المحاكم - اختصاص خرسانة مسلحة وهياكل حاملة',
     specialties: ['Génie Civil'],
-    bio: "Ingénieur Conseil agréée et Experte Judiciaire, Imen Fayala Grissi dirige le pôle Génie Civil de S3E. Spécialisée dans le calcul des structures en béton armé et des ouvrages porteurs, elle intervient régulièrement en tant qu'experte auprès des tribunaux.",
-    phones: ['+216 73 845 105', '+216 98 683 846'],
+    bio: "Ingénieure Principale en Génie Civil diplômée de [ÉCOLE] ([ANNÉE]), Imen Fayala Grissi dirige le pôle Génie Civil de S3E depuis sa création. Experte Judiciaire auprès des tribunaux, elle s'est perfectionnée en calcul des structures en béton armé et des ouvrages porteurs, [ex: à travers des collaborations avec des bureaux d'études internationaux], et intervient régulièrement sur des dossiers d'expertise technique et de contentieux.",
+    phones: ['Fixe: (+216) 73 845 105', 'Mobile: (+216) 98 683 846'],
     email: 'imen_fayala@yahoo.fr',
     whatsapp: 'https://wa.me/21698683846',
   },
@@ -78,7 +76,6 @@ onMounted(() => {
         <div class="engineer__body">
           <p class="engineer__title">{{ e.title }}</p>
           <h3 class="engineer__name">{{ e.name }}</h3>
-          <p v-if="e.arabic" class="engineer__arabic" dir="rtl">{{ e.arabic }}</p>
 
           <ul class="engineer__specialties">
             <li v-for="s in e.specialties" :key="s">{{ s }}</li>
@@ -176,12 +173,6 @@ onMounted(() => {
   color: var(--ink);
 }
 
-.engineer__arabic {
-  margin-top: 0.5rem;
-  font-size: 1.05rem;
-  color: rgba(20, 20, 20, 0.65);
-}
-
 .engineer__specialties {
   display: flex;
   flex-wrap: wrap;
@@ -251,6 +242,10 @@ onMounted(() => {
   .engineer {
     grid-template-columns: 160px 1fr;
     gap: 3rem;
+  }
+
+  .engineer--reverse {
+    grid-template-columns: 1fr 160px;
   }
 
   .engineer--reverse .engineer__avatar {
