@@ -4,9 +4,8 @@ import { onMounted, onUnmounted, ref } from 'vue'
 const links = [
   { href: '#about', label: 'Bureau' },
   { href: '#expertise', label: 'Expertise' },
-  { href: '#engineers', label: 'Ingénieurs' },
+  { href: '#engineers', label: 'L\'équipe' },
   { href: '#projects', label: 'Projets' },
-  { href: '#contact', label: 'Contact' },
 ]
 
 const scrolled = ref(false)
