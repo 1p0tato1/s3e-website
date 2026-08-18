@@ -13,6 +13,21 @@ html {
   scroll-behavior: auto;
 }
 
+html[dir='rtl'] {
+  --font-display: var(--font-display-ar);
+  --font-body: var(--font-body-ar);
+  --font-mono: var(--font-mono-ar);
+}
+
+html[dir='rtl'] * {
+  letter-spacing: normal !important;
+}
+
+html[dir='rtl'] em,
+html[dir='rtl'] i {
+  font-style: normal;
+}
+
 html.has-lenis {
   scroll-behavior: auto;
 }

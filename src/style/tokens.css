@@ -24,6 +24,10 @@
   --font-body: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
 
+  --font-display-ar: 'Amiri', 'Traditional Arabic', serif;
+  --font-body-ar: 'Cairo', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono-ar: 'Cairo', -apple-system, BlinkMacSystemFont, sans-serif;
+
   --fs-hero: clamp(3rem, 3.2vw + 2.2rem, 7.2rem);
   --fs-h1: clamp(2.4rem, 2vw + 1.8rem, 4.4rem);
   --fs-h2: clamp(1.8rem, 1.4vw + 1.4rem, 3rem);

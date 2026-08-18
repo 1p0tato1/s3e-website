@@ -1,34 +1,22 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { revealUp } from '../../composables/scrollFx'
 import BoltDivider from '../BoltDivider.vue'
 
-const domains = [
-  {
-    index: '01',
-    title: 'Structure & Génie Civil',
-    desc: "Conception et calcul des structures porteuses  béton armé, charpente métallique, fondations pour bâtiments publics, industriels et résidentiels.",
-    tags: ['Béton armé', 'Charpente métallique', 'Fondations', 'Calcul de structures'],
-  },
-  {
-    index: '02',
-    title: 'VRD',
-    desc: "Voirie et réseaux divers : voirie, assainissement, adduction d'eau potable, réseaux enterrés et aménagement de lotissements.",
-    tags: ['Voirie', 'Assainissement', "Adduction d'eau", 'Lotissements'],
-  },
-  {
-    index: '03',
-    title: 'Électricité',
-    desc: 'Installations électriques courants forts et faibles, éclairage intérieur et public, postes de transformation, études et suivi de chantier.',
-    tags: ['Courants forts', 'Courants faibles', 'Éclairage', 'Postes HTA/BT'],
-  },
-  {
-    index: '04',
-    title: 'Sécurité Incendie',
-    desc: "Désenfumage, détection et extinction automatique, sprinklage, conformité réglementaire, dossiers de sécurité pour ERP et sites industriels.",
-    tags: ['Désenfumage', 'Détection incendie', 'Sprinklage', 'Dossiers ERP'],
-  },
-]
+const { t, tm } = useI18n()
+
+const domainIds = ['structure', 'vrd', 'electricite', 'incendie'] as const
+
+const domains = computed(() =>
+  domainIds.map((id, i) => ({
+    id,
+    index: String(i + 1).padStart(2, '0'),
+    title: t(`expertise.domains.${id}.title`),
+    desc: t(`expertise.domains.${id}.desc`),
+    tags: tm(`expertise.domains.${id}.tags`) as unknown as string[],
+  })),
+)
 
 const root = ref<HTMLElement | null>(null)
 const rows = ref<HTMLElement[]>([])
@@ -41,23 +29,23 @@ onMounted(() => {
 <template>
   <section id="expertise" ref="root" class="expertise">
     <div class="container">
-      <p class="eyebrow">Domaines d'expertise</p>
-      <h2 class="expertise__title">Quatre pôles, un seul bureau.</h2>
+      <p class="eyebrow">{{ t('expertise.eyebrow') }}</p>
+      <h2 class="expertise__title">{{ t('expertise.title') }}</h2>
     </div>
 
     <div class="expertise__list">
       <article
         v-for="d in domains"
-        :key="d.index"
+        :key="d.id"
         ref="rows"
         class="expertise__row reveal"
       >
         <div class="container expertise__row-inner">
-          <span class="expertise__index">Expertise {{ d.index }}</span>
+          <span class="expertise__index">{{ t('expertise.indexLabel', { n: d.index }) }}</span>
           <h3 class="expertise__name">{{ d.title }}</h3>
           <p class="expertise__desc">{{ d.desc }}</p>
           <ul class="expertise__tags">
-            <li v-for="t in d.tags" :key="t">{{ t }}</li>
+            <li v-for="tag in d.tags" :key="tag">{{ tag }}</li>
           </ul>
         </div>
       </article>

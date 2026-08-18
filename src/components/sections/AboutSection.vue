@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { revealUp, countUp } from '../../composables/scrollFx'
 import BoltDivider from '../BoltDivider.vue'
+
+const { t } = useI18n()
 
 const yearsExperience = new Date().getFullYear() - 2000
 
@@ -31,38 +34,28 @@ onMounted(() => {
   <section id="about" ref="root" class="about">
     <div class="container about__inner">
       <div class="about__head">
-        <p class="eyebrow">Le bureau</p>
-        <h2 ref="statement" class="about__statement reveal">
-          Bureau d'Études Technique S*3*E, fondé en 2000 à Sousse. <br /> 4 spécialités,  1 exigence : <br />
-          des ouvrages <em>sûrs</em>, <em>conformes</em> et <em>livrés</em>.
-        </h2>
+        <p class="eyebrow">{{ t('about.eyebrow') }}</p>
+        <h2 ref="statement" class="about__statement reveal" v-html="t('about.statementHtml')" />
       </div>
 
       <div class="about__grid">
         <div ref="text" class="about__text reveal">
-          <p>
-            Agréé par le <strong>Ministère de l'Équipement et de l'Habitat</strong>, S*3*E intervient
-            sur 4 domaines complémentaires : Structure &amp; Génie Civil, VRD, Électricité,
-            Sécurité Incendie.
-          </p>
-          <p>
-            Plus de deux décennies de projets menés dans toute la Tunisie et au-delà, en Algérie,
-            au Tchad et en France via des partenaires internationaux.
-          </p>
+          <p v-html="t('about.textP1')" />
+          <p>{{ t('about.textP2') }}</p>
         </div>
 
         <dl ref="stats" class="about__stats">
           <div class="about__stat reveal">
             <dt ref="statFounded" class="about__stat-value">0</dt>
-            <dd class="about__stat-label">Fondation du bureau</dd>
+            <dd class="about__stat-label">{{ t('about.statFoundedLabel') }}</dd>
           </div>
           <div class="about__stat reveal">
             <dt ref="statYears" class="about__stat-value">0</dt>
-            <dd class="about__stat-label">Années d'expérience</dd>
+            <dd class="about__stat-label">{{ t('about.statYearsLabel') }}</dd>
           </div>
           <div class="about__stat reveal">
             <dt ref="statDomains" class="about__stat-value">0</dt>
-            <dd class="about__stat-label">Domaines d'expertise</dd>
+            <dd class="about__stat-label">{{ t('about.statDomainsLabel') }}</dd>
           </div>
         </dl>
       </div>
@@ -70,14 +63,11 @@ onMounted(() => {
       <div ref="badge" class="about__badge reveal">
         <div class="about__badge-marks">
           <div class="about__badge-logo">
-            <img src="../../assets/ministere-equipement.png" alt="Ministère de l'Équipement et de l'Habitat" />
+            <img src="../../assets/ministere-equipement.png" :alt="t('about.badgeAlt')" />
           </div>
         </div>
 
-        <p class="about__badge-text">
-          Bureau d'études technique agréé par le Ministère de l'Équipement et de l'Habitat,
-          habilité à intervenir sur les projets publics et privés à l'échelle nationale.
-        </p>
+        <p class="about__badge-text">{{ t('about.badgeText') }}</p>
       </div>
     </div>
 

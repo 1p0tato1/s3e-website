@@ -1,13 +1,17 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import ContactIcon from './ContactIcon.vue'
+import LanguageSwitcher from './LanguageSwitcher.vue'
 
-const links = [
-  { href: '#about', label: 'Bureau' },
-  { href: '#expertise', label: 'Expertise' },
-  { href: '#engineers', label: 'L\'équipe' },
-  { href: '#projects', label: 'Projets' },
-]
+const { t } = useI18n()
+
+const links = computed(() => [
+  { href: '#about', label: t('nav.links.bureau') },
+  { href: '#expertise', label: t('nav.links.expertise') },
+  { href: '#engineers', label: t('nav.links.equipe') },
+  { href: '#projects', label: t('nav.links.projets') },
+])
 
 const googleMapsUrl = 'https://maps.app.goo.gl/bN187FsuPyuU9GDK8'
 
@@ -44,17 +48,19 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
         target="_blank"
         rel="noopener"
         class="nav__map"
-        aria-label="Voir le bureau S3E sur Google Maps"
+        :aria-label="t('common.mapLinkAria')"
       >
         <ContactIcon type="map" />
       </a>
 
-      <a href="#contact" class="btn nav__cta">Nous contacter</a>
+      <LanguageSwitcher class="nav__switch" />
+
+      <a href="#contact" class="btn nav__cta">{{ t('nav.contact') }}</a>
 
       <button
         class="nav__toggle"
         :aria-expanded="open"
-        aria-label="Ouvrir le menu"
+        :aria-label="t('nav.openMenu')"
         @click="open = !open"
       >
         <span />
@@ -74,9 +80,10 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
         @click="closeMenu"
       >
         <ContactIcon type="map" />
-        Voir le bureau sur Google Maps
+        {{ t('nav.mapMobile') }}
       </a>
-      <a href="#contact" class="btn btn--volt nav__mobile-cta" @click="closeMenu">Nous contacter</a>
+      <LanguageSwitcher class="nav__mobile-switch" />
+      <a href="#contact" class="btn btn--volt nav__mobile-cta" @click="closeMenu">{{ t('nav.contact') }}</a>
     </div>
   </header>
 </template>
@@ -114,7 +121,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 .nav__brand {
   display: flex;
   align-items: center;
-  margin-right: auto;
+  margin-inline-end: auto;
 }
 
 .nav__mark {
@@ -141,7 +148,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 .nav__link::after {
   content: '';
   position: absolute;
-  left: 0;
+  inset-inline-start: 0;
   bottom: -2px;
   width: 100%;
   height: 2px;
@@ -178,6 +185,15 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   border-color: var(--volt);
   background: var(--volt);
   color: var(--navy-night);
+}
+
+.nav__switch {
+  display: none;
+}
+
+.nav__mobile-switch {
+  margin-top: 1.2rem;
+  align-self: flex-start;
 }
 
 .nav__toggle {
@@ -241,6 +257,9 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   }
   .nav__map {
     display: flex;
+  }
+  .nav__switch {
+    display: inline-grid;
   }
   .nav__toggle {
     display: none;

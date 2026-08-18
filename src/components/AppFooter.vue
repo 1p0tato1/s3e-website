@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 const year = new Date().getFullYear()
 </script>
 
@@ -6,8 +9,8 @@ const year = new Date().getFullYear()
   <footer class="footer">
     <div class="container footer__bottom">
       <span class="footer__mark"><img src="/S3EE-NoBG.png" alt="Logo S3E" /></span>
-      <p>© {{ year }} S3E - Société Études Équipements Exécutions.</p>
-      <p>Structure · VRD · Électricité · Sécurité Incendie</p>
+      <p>{{ t('footer.copyright', { year }) }}</p>
+      <p>{{ t('footer.tagline') }}</p>
     </div>
   </footer>
 </template>

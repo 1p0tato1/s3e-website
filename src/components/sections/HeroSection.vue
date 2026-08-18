@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { gsap, ScrollTrigger } from '../../composables/scrollFx'
 import ContactIcon from '../ContactIcon.vue'
 
+const { t, tm } = useI18n()
+
 const googleMapsUrl = 'https://maps.app.goo.gl/bN187FsuPyuU9GDK8'
 
-const titleWords = ['S*3*E :', 'Société', 'Etudes', 'Equipements', 'Executions']
 const titleLines = ref<HTMLElement[]>([])
 const lede = ref<HTMLElement | null>(null)
 const actions = ref<HTMLElement | null>(null)
@@ -61,29 +63,28 @@ onMounted(() => {
 
     <div class="container hero__inner">
       <div class="hero__copy">
-        <p ref="eyebrow" class="eyebrow">Bureau d'études · Sousse, Tunisie · depuis 2000</p>
+        <p ref="eyebrow" class="eyebrow">{{ t('hero.eyebrow') }}</p>
 
         <h1 class="hero__title">
-          <span v-for="(w, i) in titleWords" :key="i" class="reveal-line">
+          <span v-for="(w, i) in (tm('hero.titleWords') as string[])" :key="i" class="reveal-line">
             <span ref="titleLines" class="hero__title-word" v-html="w" />
           </span>
         </h1>
 
         <p ref="lede" class="hero__lede">
-          <strong>Structure &amp; Génie Civil, VRD, Électricité, Sécurité Incendie</strong> <br>
-          Depuis 2000, on conçoit
-          et supervise les projets qui tiennent debout, en Tunisie et à l'international.
+          <strong>{{ t('hero.ledeStrong') }}</strong> <br>
+          {{ t('hero.ledeText') }}
         </p>
 
         <div ref="actions" class="hero__actions">
-          <a href="#projects" class="btn btn--volt">Voir nos projets</a>
-          <a href="#contact" class="btn">Nous contacter</a>
+          <a href="#projects" class="btn btn--volt">{{ t('hero.ctaProjects') }}</a>
+          <a href="#contact" class="btn">{{ t('hero.ctaContact') }}</a>
           <a
             :href="googleMapsUrl"
             target="_blank"
             rel="noopener"
             class="hero__map-btn"
-            aria-label="Voir le bureau S3E sur Google Maps"
+            :aria-label="t('common.mapLinkAria')"
           >
             <ContactIcon type="map" />
           </a>
@@ -94,13 +95,13 @@ onMounted(() => {
         <div class="hero__panel-stripes" aria-hidden="true">
           <span v-for="n in 9" :key="n" />
         </div>
-        <img src="../../assets/S3EE-NoBG.png" alt="Logo-S3E" class="hero__panel-image">
+        <img src="../../assets/S3EE-NoBG.png" :alt="t('hero.panelAlt')" class="hero__panel-image">
       </div>
     </div>
 
     <div class="hero__cue" aria-hidden="true">
       <span class="hero__cue-line" />
-      <span>Défiler</span>
+      <span>{{ t('hero.scrollCue') }}</span>
     </div>
   </section>
 </template>
@@ -126,7 +127,7 @@ onMounted(() => {
 
 .hero__bg-line {
   position: absolute;
-  left: 0;
+  inset-inline-start: 0;
   width: 62%;
   height: 1px;
   background: linear-gradient(90deg, rgba(var(--navy-rgb), 0.16), transparent);
@@ -242,7 +243,7 @@ onMounted(() => {
 
 .hero__cue {
   position: absolute;
-  left: var(--edge);
+  inset-inline-start: var(--edge);
   bottom: 1.6rem;
   display: none;
   align-items: center;

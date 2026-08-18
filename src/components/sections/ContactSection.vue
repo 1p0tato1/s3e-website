@@ -1,30 +1,39 @@
 <script setup lang="ts">
-import { onMounted, reactive, ref } from 'vue'
+import { computed, onMounted, reactive, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { revealUp } from '../../composables/scrollFx'
 import ContactIcon from '../ContactIcon.vue'
 
-const contacts = [
+const { t, tm } = useI18n()
+
+const contactsMeta = [
   {
-    name: 'Sofiane Fayala',
-    role: 'Électricité · Sécurité Incendie',
+    id: 'sofiane' as const,
     email: 'sofien.fayala@yahoo.fr',
     phone: '+216 23 402 862',
     whatsapp: 'https://wa.me/21623402862',
     linkedin: 'https://www.linkedin.com/in/sofiane-fayala-4983b836/',
   },
   {
-    name: 'Imen Fayala Grissi',
-    role: 'Génie Civil',
+    id: 'imen' as const,
     email: 'imen_fayala@yahoo.fr',
     phone: '+216 98 683 846',
     whatsapp: 'https://wa.me/21698683846',
   },
 ]
 
+const contacts = computed(() =>
+  contactsMeta.map((c) => ({
+    ...c,
+    name: t(`team.${c.id}.name`),
+    role: (tm(`team.${c.id}.specialties`) as unknown as string[]).join(' · '),
+  })),
+)
+
 const form = reactive({
   name: '',
   email: '',
-  recipient: contacts[0]!.email,
+  recipient: contactsMeta[0]!.email,
   message: '',
 })
 
@@ -42,9 +51,11 @@ const osmEmbedUrl = (() => {
 
 function submitForm() {
   const to = form.recipient
-  const subject = encodeURIComponent(`Contact site S3E — ${form.name || 'Nouveau message'}`)
+  const subject = encodeURIComponent(
+    `${t('contact.mailSubjectPrefix')} — ${form.name || t('contact.mailNewMessage')}`,
+  )
   const body = encodeURIComponent(
-    `Nom : ${form.name}\nEmail : ${form.email}\n\n${form.message}`,
+    `${t('contact.mailBodyName')} : ${form.name}\n${t('contact.mailBodyEmail')} : ${form.email}\n\n${form.message}`,
   )
   window.location.href = `mailto:${to}?subject=${subject}&body=${body}`
   sent.value = true
@@ -67,17 +78,17 @@ onMounted(() => {
     <div class="container contact__inner">
       <div ref="left" class="contact__left">
         <div class="reveal">
-          <p class="eyebrow">Contact</p>
-          <h2 class="contact__title">Parlons de votre projet.</h2>
+          <p class="eyebrow">{{ t('contact.eyebrow') }}</p>
+          <h2 class="contact__title">{{ t('contact.title') }}</h2>
         </div>
 
         <div class="contact__cards reveal">
-          <article v-for="c in contacts" :key="c.name" class="contact__card">
+          <article v-for="c in contacts" :key="c.id" class="contact__card">
             <p class="contact__card-role">{{ c.role }}</p>
             <h3 class="contact__card-name">{{ c.name }}</h3>
             <ul class="contact__card-links">
               <li>
-                <a :href="`tel:${c.phone.replace(/[^\d+]/g, '')}`"><ContactIcon type="phone" />{{ c.phone }}</a>
+                <a :href="`tel:${c.phone.replace(/[^\d+]/g, '')}`"><ContactIcon type="phone" /><span dir="ltr">{{ c.phone }}</span></a>
               </li>
               <li>
                 <a :href="`mailto:${c.email}`"><ContactIcon type="mail" />{{ c.email }}</a>
@@ -89,7 +100,7 @@ onMounted(() => {
                 <a :href="c.whatsapp" target="_blank" rel="noopener"><ContactIcon type="whatsapp" />WhatsApp</a>
               </li>
               <li>
-                <a :href="googleMapsUrl" target="_blank" rel="noopener"><ContactIcon type="map" />Bureau n°2.2, Immeuble le 103, Av. Ibn El Jazzar, 4000 Sousse</a>
+                <a :href="googleMapsUrl" target="_blank" rel="noopener"><ContactIcon type="map" />{{ t('common.address') }}</a>
               </li>
             </ul>
           </article>
@@ -97,38 +108,38 @@ onMounted(() => {
       </div>
 
       <form ref="right" class="contact__form reveal" @submit.prevent="submitForm">
-        <p class="eyebrow">Écrivez-nous</p>
+        <p class="eyebrow">{{ t('contact.formEyebrow') }}</p>
 
         <label class="contact__field">
-          <span>Nom</span>
-          <input v-model="form.name" type="text" name="name" required placeholder="Votre nom" />
+          <span>{{ t('contact.fieldName') }}</span>
+          <input v-model="form.name" type="text" name="name" required :placeholder="t('contact.placeholderName')" />
         </label>
 
         <label class="contact__field">
-          <span>Email</span>
-          <input v-model="form.email" type="email" name="email" required placeholder="vous@exemple.com" />
+          <span>{{ t('contact.fieldEmail') }}</span>
+          <input v-model="form.email" type="email" name="email" required :placeholder="t('contact.placeholderEmail')" />
         </label>
 
         <label class="contact__field">
-          <span>Destinataire</span>
+          <span>{{ t('contact.fieldRecipient') }}</span>
           <select v-model="form.recipient" name="recipient">
             <option v-for="c in contacts" :key="c.email" :value="c.email">{{ c.name }}</option>
           </select>
         </label>
 
         <label class="contact__field">
-          <span>Message</span>
+          <span>{{ t('contact.fieldMessage') }}</span>
           <textarea
             v-model="form.message"
             name="message"
             rows="5"
             required
-            placeholder="Décrivez votre projet en quelques mots…"
+            :placeholder="t('contact.placeholderMessage')"
           />
         </label>
 
-        <button type="submit" class="btn btn--volt">Envoyer le message</button>
-        <p v-if="sent" class="contact__sent">Votre client mail va s'ouvrir pour finaliser l'envoi.</p>
+        <button type="submit" class="btn btn--volt">{{ t('contact.submit') }}</button>
+        <p v-if="sent" class="contact__sent">{{ t('contact.sentMessage') }}</p>
       </form>
     </div>
 
@@ -137,13 +148,13 @@ onMounted(() => {
         class="contact__map-frame"
         :src="osmEmbedUrl"
         loading="lazy"
-        title="Localisation du bureau S3E — Sousse"
+        :title="t('contact.mapIframeTitle')"
       />
       <a class="contact__map-text" :href="googleMapsUrl" target="_blank" rel="noopener">
         <ContactIcon type="map" />
         <div>
-          <strong>Bureau n°2.2, Immeuble le 103</strong>
-          <span>Av. Ibn El Jazzar, 4000 Sousse — ouvrir dans Google Maps</span>
+          <strong>{{ t('contact.mapCardTitle') }}</strong>
+          <span>{{ t('contact.mapCardSubtitle') }}</span>
         </div>
       </a>
     </div>
@@ -235,7 +246,7 @@ onMounted(() => {
 
 .contact__map-text {
   position: absolute;
-  left: var(--edge);
+  inset-inline-start: var(--edge);
   bottom: 1.5rem;
   display: flex;
   align-items: center;

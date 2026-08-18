@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import { nextTick, onMounted, ref } from 'vue'
+import { computed, nextTick, onMounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { gsap, revealUp, countUp } from '../../composables/scrollFx'
-import { projectCategories, projectStats, trustedClients } from '../../data/projects'
+import { projectCategories as projectCategoriesMeta, projectStats as projectStatsMeta, trustedClients as trustedClientsMeta } from '../../data/projects'
 import BoltDivider from '../BoltDivider.vue'
+
+const { t, tm } = useI18n()
 
 const clientLogoFiles = import.meta.glob('../../assets/clients/*.{png,jpg,jpeg,svg,webp}', {
   eager: true,
@@ -14,17 +17,39 @@ function logoFor(file: string) {
   return match?.[1]
 }
 
-const trustedLogos = trustedClients.filter((c) => logoFor(c.file))
-const trustTrain = [...trustedLogos, ...trustedLogos]
+const projectCategories = computed(() =>
+  projectCategoriesMeta.map((c) => ({
+    ...c,
+    label: t(`projects.categories.${c.id}.label`),
+    items: tm(`projects.categories.${c.id}.items`) as unknown as string[],
+  })),
+)
 
-const active = ref(projectCategories[0]!.id)
+const projectStats = computed(() =>
+  projectStatsMeta.map((s, i) => ({
+    ...s,
+    label: (tm('projects.stats') as unknown as string[])[i]!,
+  })),
+)
+
+const trustedClients = computed(() =>
+  trustedClientsMeta.map((c) => ({
+    ...c,
+    name: t(`projects.trustedClients.${c.id}.name`),
+  })),
+)
+
+const trustedLogos = computed(() => trustedClients.value.filter((c) => logoFor(c.file)))
+const trustTrain = computed(() => [...trustedLogos.value, ...trustedLogos.value])
+
+const active = ref(projectCategoriesMeta[0]!.id)
 const root = ref<HTMLElement | null>(null)
 const statsRow = ref<HTMLElement | null>(null)
 const statEls = ref<HTMLElement[]>([])
 const ledger = ref<HTMLElement | null>(null)
 
 function activeCategory() {
-  return projectCategories.find((c) => c.id === active.value) ?? projectCategories[0]!
+  return projectCategories.value.find((c) => c.id === active.value) ?? projectCategories.value[0]!
 }
 
 async function setActive(id: string) {
@@ -44,7 +69,7 @@ async function setActive(id: string) {
 onMounted(() => {
   if (statsRow.value) revealUp(statsRow.value.children, { stagger: 0.1, trigger: statsRow.value })
   statEls.value.forEach((el, i) => {
-    const stat = projectStats[i]
+    const stat = projectStatsMeta[i]
     if (stat) countUp(el, stat.value, { suffix: stat.suffix, trigger: statsRow.value ?? undefined })
   })
   if (ledger.value) {
@@ -57,11 +82,11 @@ onMounted(() => {
 <template>
   <section id="projects" ref="root" class="projects on-dark">
     <div class="container">
-      <p class="eyebrow">Réalisations</p>
-      <h2 class="projects__title">Plus de 200 projets livrés en {{ new Date().getFullYear() - 2000 }}+ ans</h2>
+      <p class="eyebrow">{{ t('projects.eyebrow') }}</p>
+      <h2 class="projects__title">{{ t('projects.titleTemplate', { n: new Date().getFullYear() - 2000 }) }}</h2>
 
       <dl ref="statsRow" class="projects__stats">
-        <div v-for="s in projectStats" :key="s.label" class="projects__stat reveal">
+        <div v-for="(s, i) in projectStats" :key="i" class="projects__stat reveal">
           <dt ref="statEls" class="projects__stat-value">0</dt>
           <dd class="projects__stat-label">{{ s.label }}</dd>
         </div>
@@ -85,7 +110,7 @@ onMounted(() => {
       </div>
 
       <div ref="ledger" class="ledger">
-        <div v-for="(item, i) in activeCategory().items" :key="item" class="ledger__row">
+        <div v-for="(item, i) in activeCategory().items" :key="i" class="ledger__row">
           <span class="ledger__row-index">{{ String(i + 1).padStart(2, '0') }}</span>
           <span class="ledger__row-name">{{ item }}</span>
         </div>
@@ -93,7 +118,7 @@ onMounted(() => {
     </div>
 
     <div class="trust">
-      <p class="container eyebrow trust__eyebrow">Ils nous ont fait confiance</p>
+      <p class="container eyebrow trust__eyebrow">{{ t('projects.trustEyebrow') }}</p>
       <div class="trust__rail" role="list" aria-label="Clients et partenaires">
         <div class="trust__track">
           <component
@@ -203,11 +228,11 @@ onMounted(() => {
   gap: 1.2rem;
   padding-block: 0.9rem;
   border-bottom: 1px solid rgba(247, 246, 242, 0.1);
-  transition: padding-left 0.25s var(--ease-out);
+  transition: padding-inline-start 0.25s var(--ease-out);
 }
 
 .ledger__row:hover {
-  padding-left: 0.6rem;
+  padding-inline-start: 0.6rem;
   background: rgba(247, 246, 242, 0.04);
 }
 

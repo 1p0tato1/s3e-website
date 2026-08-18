@@ -1,48 +1,61 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { revealUp } from '../../composables/scrollFx'
 import BoltDivider from '../BoltDivider.vue'
 import ContactIcon from '../ContactIcon.vue'
 
-interface Engineer {
-  name: string
+const { t, tm } = useI18n()
+
+interface EngineerMeta {
+  id: 'sofiane' | 'imen'
   initials: string
-  title: string
-  specialties: string[]
-  bio: string
-  phones: string[]
+  phones: { labelKey: 'team.phoneFixed' | 'team.phoneMobile'; number: string }[]
   email: string
   linkedin?: string
   whatsapp: string
 }
 
-const engineers: Engineer[] = [
+const engineersMeta: EngineerMeta[] = [
   {
-    name: 'Sofiane Fayala',
+    id: 'sofiane',
     initials: 'SF',
-    title: 'Ingénieur Conseil — Expert Judiciaire auprès des Tribunaux',
-    specialties: ['Électricité', 'Sécurité Incendie'],
-    bio: "Ingénieur Principal en Génie Électrique diplômé de l'ENIM (1996), Sofiane Fayala fonde S3E en 2000 et en assure la direction depuis. Expert Judiciaire auprès des tribunaux depuis 2023, il s'est formé auprès de grands industriels internationaux — Schneider Electric (France), ABB (Allemagne), Fermax (Espagne) — pour affiner son expertise en électricité et en sécurité incendie.",
-    phones: ['Fixe: (+216) 73 845 105', 'Mobile: (+216) 23 402 862'],
+    phones: [
+      { labelKey: 'team.phoneFixed', number: '(+216) 73 845 105' },
+      { labelKey: 'team.phoneMobile', number: '(+216) 23 402 862' },
+    ],
     email: 'sofien.fayala@yahoo.fr',
     linkedin: 'https://www.linkedin.com/in/sofiane-fayala-4983b836/',
     whatsapp: 'https://wa.me/21623402862',
   },
   {
-    name: 'Imen Fayala Grissi',
+    id: 'imen',
     initials: 'IF',
-    title: 'Ingénieur Conseil Agréé & Expert Judiciaire | Génie Civil',
-    specialties: ['Génie Civil'],
-    bio: "Ingénieure Principale en Génie Civil diplômée de [ÉCOLE] ([ANNÉE]), Imen Fayala Grissi dirige le pôle Génie Civil de S3E depuis sa création. Experte Judiciaire auprès des tribunaux, elle s'est perfectionnée en calcul des structures en béton armé et des ouvrages porteurs, [ex: à travers des collaborations avec des bureaux d'études internationaux], et intervient régulièrement sur des dossiers d'expertise technique et de contentieux.",
-    phones: ['Fixe: (+216) 73 845 105', 'Mobile: (+216) 98 683 846'],
+    phones: [
+      { labelKey: 'team.phoneFixed', number: '(+216) 73 845 105' },
+      { labelKey: 'team.phoneMobile', number: '(+216) 98 683 846' },
+    ],
     email: 'imen_fayala@yahoo.fr',
     whatsapp: 'https://wa.me/21698683846',
   },
 ]
 
+const engineers = computed(() =>
+  engineersMeta.map((e) => ({
+    ...e,
+    name: t(`team.${e.id}.name`),
+    title: t(`team.${e.id}.title`),
+    specialties: tm(`team.${e.id}.specialties`) as unknown as string[],
+    bio: t(`team.${e.id}.bio`),
+    phones: e.phones.map((p) => ({ label: t(p.labelKey), number: p.number })),
+  })),
+)
+
 function telHref(phone: string) {
   return `tel:${phone.replace(/[^\d+]/g, '')}`
 }
+
+const googleMapsUrl = 'https://maps.app.goo.gl/bN187FsuPyuU9GDK8'
 
 const root = ref<HTMLElement | null>(null)
 const cards = ref<HTMLElement[]>([])
@@ -55,14 +68,14 @@ onMounted(() => {
 <template>
   <section id="engineers" ref="root" class="engineers">
     <div class="container">
-      <p class="eyebrow">L'équipe</p>
-      <h2 class="engineers__title">Les ingénieurs</h2>
+      <p class="eyebrow">{{ t('engineers.eyebrow') }}</p>
+      <h2 class="engineers__title">{{ t('engineers.title') }}</h2>
     </div>
 
     <div class="engineers__list container">
       <article
         v-for="(e, i) in engineers"
-        :key="e.name"
+        :key="e.id"
         ref="cards"
         class="engineer reveal"
         :class="{ 'engineer--reverse': i % 2 === 1 }"
@@ -84,8 +97,8 @@ onMounted(() => {
           <p class="engineer__bio">{{ e.bio }}</p>
 
           <ul class="engineer__contacts">
-            <li v-for="p in e.phones" :key="p">
-              <a :href="telHref(p)"><ContactIcon type="phone" />{{ p }}</a>
+            <li v-for="p in e.phones" :key="p.number">
+              <a :href="telHref(p.number)"><ContactIcon type="phone" />{{ p.label }}: <span dir="ltr">{{ p.number }}</span></a>
             </li>
             <li>
               <a :href="`mailto:${e.email}`"><ContactIcon type="mail" />{{ e.email }}</a>
@@ -103,8 +116,8 @@ onMounted(() => {
 
     <p class="engineers__address container">
       <ContactIcon type="map" />
-      Bureau n°2.2, Immeuble le 103, Av. Ibn El Jazzar, 4000 Sousse ·
-      <a href="https://maps.app.goo.gl/bN187FsuPyuU9GDK8" target="_blank" rel="noopener">voir sur la carte</a>
+      {{ t('common.address') }} ·
+      <a :href="googleMapsUrl" target="_blank" rel="noopener">{{ t('engineers.mapLinkText') }}</a>
     </p>
 
     <BoltDivider variant="navy" />
@@ -255,7 +268,7 @@ onMounted(() => {
 
   .engineer--reverse .engineer__body {
     order: 1;
-    text-align: right;
+    text-align: end;
   }
 
   .engineer--reverse .engineer__specialties,
@@ -268,7 +281,7 @@ onMounted(() => {
   }
 
   .engineer--reverse .engineer__bio {
-    margin-left: auto;
+    margin-inline-start: auto;
   }
 }
 </style>
