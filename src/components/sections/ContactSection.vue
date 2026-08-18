@@ -88,6 +88,9 @@ onMounted(() => {
               <li>
                 <a :href="c.whatsapp" target="_blank" rel="noopener"><ContactIcon type="whatsapp" />WhatsApp</a>
               </li>
+              <li>
+                <a :href="googleMapsUrl" target="_blank" rel="noopener"><ContactIcon type="map" />Bureau n°2.2, Immeuble le 103, Av. Ibn El Jazzar, 4000 Sousse</a>
+              </li>
             </ul>
           </article>
         </div>

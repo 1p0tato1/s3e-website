@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { gsap, ScrollTrigger } from '../../composables/scrollFx'
+import ContactIcon from '../ContactIcon.vue'
+
+const googleMapsUrl = 'https://maps.app.goo.gl/bN187FsuPyuU9GDK8'
 
 const titleWords = ['S*3*E :', 'Société', 'Etudes', 'Equipements', 'Executions']
 const titleLines = ref<HTMLElement[]>([])
@@ -75,6 +78,15 @@ onMounted(() => {
         <div ref="actions" class="hero__actions">
           <a href="#projects" class="btn btn--volt">Voir nos projets</a>
           <a href="#contact" class="btn">Nous contacter</a>
+          <a
+            :href="googleMapsUrl"
+            target="_blank"
+            rel="noopener"
+            class="hero__map-btn"
+            aria-label="Voir le bureau S3E sur Google Maps"
+          >
+            <ContactIcon type="map" />
+          </a>
         </div>
       </div>
 
@@ -167,8 +179,31 @@ onMounted(() => {
 .hero__actions {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 1rem;
   margin-top: 2.4rem;
+}
+
+.hero__map-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.1em;
+  height: 3.1em;
+  flex-shrink: 0;
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+  font-size: 1.1rem;
+  color: var(--ink);
+  transition:
+    background-color 0.3s var(--ease-out),
+    color 0.3s var(--ease-out),
+    border-color 0.3s var(--ease-out);
+}
+
+.hero__map-btn:hover {
+  background: var(--ink);
+  color: var(--paper);
 }
 
 .hero__panel {

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
+import ContactIcon from './ContactIcon.vue'
 
 const links = [
   { href: '#about', label: 'Bureau' },
@@ -7,6 +8,8 @@ const links = [
   { href: '#engineers', label: 'L\'équipe' },
   { href: '#projects', label: 'Projets' },
 ]
+
+const googleMapsUrl = 'https://maps.app.goo.gl/bN187FsuPyuU9GDK8'
 
 const scrolled = ref(false)
 const open = ref(false)
@@ -36,6 +39,16 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
         </a>
       </nav>
 
+      <a
+        :href="googleMapsUrl"
+        target="_blank"
+        rel="noopener"
+        class="nav__map"
+        aria-label="Voir le bureau S3E sur Google Maps"
+      >
+        <ContactIcon type="map" />
+      </a>
+
       <a href="#contact" class="btn nav__cta">Nous contacter</a>
 
       <button
@@ -52,6 +65,16 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
     <div class="nav__mobile" v-if="open">
       <a v-for="l in links" :key="l.href" :href="l.href" class="nav__mobile-link" @click="closeMenu">
         {{ l.label }}
+      </a>
+      <a
+        :href="googleMapsUrl"
+        target="_blank"
+        rel="noopener"
+        class="nav__mobile-link nav__mobile-map"
+        @click="closeMenu"
+      >
+        <ContactIcon type="map" />
+        Voir le bureau sur Google Maps
       </a>
       <a href="#contact" class="btn btn--volt nav__mobile-cta" @click="closeMenu">Nous contacter</a>
     </div>
@@ -137,6 +160,26 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   padding: 0.7em 1.3em;
 }
 
+.nav__map {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border: 1px solid rgba(20, 20, 20, 0.2);
+  border-radius: 50%;
+  color: var(--ink);
+  font-size: 1.1rem;
+  transition: border-color 0.25s var(--ease-out), color 0.25s var(--ease-out), background-color 0.25s var(--ease-out);
+}
+
+.nav__map:hover {
+  border-color: var(--volt);
+  background: var(--volt);
+  color: var(--navy-night);
+}
+
 .nav__toggle {
   width: 30px;
   height: 20px;
@@ -175,6 +218,15 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   border-bottom: 1px solid rgba(20, 20, 20, 0.08);
 }
 
+.nav__mobile-map {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  color: rgba(20, 20, 20, 0.75);
+}
+
 .nav__mobile-cta {
   margin-top: 1.5rem;
   align-self: flex-start;
@@ -186,6 +238,9 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   }
   .nav__cta {
     display: inline-flex;
+  }
+  .nav__map {
+    display: flex;
   }
   .nav__toggle {
     display: none;
