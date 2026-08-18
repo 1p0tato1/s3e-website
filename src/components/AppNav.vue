@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
-import LogoMark from './LogoMark.vue'
 
 const links = [
   { href: '#about', label: 'Bureau' },
@@ -29,8 +28,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   <header class="nav" :class="{ 'nav--scrolled': scrolled, 'nav--open': open }">
     <div class="nav__inner container">
       <a href="#top" class="nav__brand" @click="closeMenu">
-        <span class="nav__mark"><LogoMark /></span>
-        <span class="nav__wordmark">S<em>*</em>3<em>*</em>E</span>
+        <img src="/S3EE-NoBG.png" alt="S3E" class="nav__mark" />
       </a>
 
       <nav class="nav__links" aria-label="Navigation principale">
@@ -94,27 +92,14 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 .nav__brand {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
   margin-right: auto;
 }
 
 .nav__mark {
-  width: 34px;
-  height: 34px;
+  height: 40px;
+  width: auto;
   flex-shrink: 0;
-}
-
-.nav__wordmark {
-  font-family: var(--font-display);
-  font-size: 1.2rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-}
-
-.nav__wordmark em {
-  font-style: normal;
-  color: var(--volt);
-  padding-inline: 0.05em;
+  display: block;
 }
 
 .nav__links {
