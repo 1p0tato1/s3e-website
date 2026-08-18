@@ -30,6 +30,16 @@ const form = reactive({
 
 const sent = ref(false)
 
+const officeCoords = { lat: 35.8272352, lon: 10.632845 }
+const googleMapsUrl = 'https://maps.app.goo.gl/bN187FsuPyuU9GDK8'
+const osmEmbedUrl = (() => {
+  const { lat, lon } = officeCoords
+  const dLat = 0.006
+  const dLon = 0.014
+  const bbox = [lon - dLon, lat - dLat, lon + dLon, lat + dLat].join(',')
+  return `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${lat},${lon}`
+})()
+
 function submitForm() {
   const to = form.recipient
   const subject = encodeURIComponent(`Contact site S3E — ${form.name || 'Nouveau message'}`)
@@ -43,10 +53,12 @@ function submitForm() {
 const root = ref<HTMLElement | null>(null)
 const left = ref<HTMLElement | null>(null)
 const right = ref<HTMLElement | null>(null)
+const mapEl = ref<HTMLElement | null>(null)
 
 onMounted(() => {
   if (left.value) revealUp(left.value.children, { stagger: 0.12, trigger: left.value })
   if (right.value) revealUp(right.value, { trigger: right.value })
+  if (mapEl.value) revealUp(mapEl.value, { trigger: mapEl.value })
 })
 </script>
 
@@ -79,24 +91,6 @@ onMounted(() => {
             </ul>
           </article>
         </div>
-
-        <a
-          class="contact__map reveal"
-          href="https://maps.app.goo.gl/bN187FsuPyuU9GDK8"
-          target="_blank"
-          rel="noopener"
-        >
-          <div class="contact__map-plan" aria-hidden="true">
-            <span v-for="n in 6" :key="n" />
-          </div>
-          <div class="contact__map-text">
-            <ContactIcon type="map" />
-            <div>
-              <strong>Bureau n°2.2, Immeuble le 103</strong>
-              <span>Av. Ibn El Jazzar, 4000 Sousse — ouvrir dans Google Maps</span>
-            </div>
-          </div>
-        </a>
       </div>
 
       <form ref="right" class="contact__form reveal" @submit.prevent="submitForm">
@@ -133,6 +127,22 @@ onMounted(() => {
         <button type="submit" class="btn btn--volt">Envoyer le message</button>
         <p v-if="sent" class="contact__sent">Votre client mail va s'ouvrir pour finaliser l'envoi.</p>
       </form>
+    </div>
+
+    <div ref="mapEl" class="contact__map reveal">
+      <iframe
+        class="contact__map-frame"
+        :src="osmEmbedUrl"
+        loading="lazy"
+        title="Localisation du bureau S3E — Sousse"
+      />
+      <a class="contact__map-text" :href="googleMapsUrl" target="_blank" rel="noopener">
+        <ContactIcon type="map" />
+        <div>
+          <strong>Bureau n°2.2, Immeuble le 103</strong>
+          <span>Av. Ibn El Jazzar, 4000 Sousse — ouvrir dans Google Maps</span>
+        </div>
+      </a>
     </div>
   </section>
 </template>
@@ -205,35 +215,44 @@ onMounted(() => {
 }
 
 .contact__map {
-  display: block;
   position: relative;
-  margin-top: 1.5rem;
-  border: 1px solid rgba(20, 20, 20, 0.14);
-  border-radius: var(--radius);
+  width: 100%;
+  margin-top: clamp(4rem, 8vw, 6.5rem);
   overflow: hidden;
-}
-
-.contact__map-plan {
-  height: 90px;
   background: var(--navy-night);
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  padding-inline: 1rem;
 }
 
-.contact__map-plan span {
-  width: 1px;
-  height: 60%;
-  background: rgba(247, 246, 242, 0.14);
+.contact__map-frame {
+  display: block;
+  width: 100%;
+  height: clamp(320px, 42vw, 480px);
+  border: 0;
+  filter: grayscale(0.55) contrast(1.05) brightness(1.03);
 }
 
 .contact__map-text {
+  position: absolute;
+  left: var(--edge);
+  bottom: 1.5rem;
   display: flex;
   align-items: center;
-  gap: 0.8rem;
-  padding: 1.1rem 1.3rem;
+  gap: 0.9rem;
+  max-width: min(24rem, calc(100% - 2 * var(--edge)));
+  padding: 1.1rem 1.4rem;
+  background: rgba(247, 246, 242, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(20, 20, 20, 0.1);
+  border-radius: var(--radius);
+  box-shadow: 0 18px 34px -18px rgba(var(--navy-night-rgb), 0.55);
   color: var(--ink);
+  text-decoration: none;
+  transition: transform 0.25s var(--ease-out), box-shadow 0.25s;
+}
+
+.contact__map-text:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 22px 40px -16px rgba(var(--navy-night-rgb), 0.65);
 }
 
 .contact__map-text div {
@@ -243,8 +262,14 @@ onMounted(() => {
   font-size: var(--fs-small);
 }
 
+.contact__map-text strong {
+  color: var(--navy-night);
+}
+
 .contact__map-text span {
   color: rgba(20, 20, 20, 0.55);
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
 }
 
 .contact__form {
