@@ -188,6 +188,50 @@ export const projectCategories: ProjectCategory[] = [
   },
 ]
 
+export interface TrustedClient {
+  file: string
+  name: string
+  url?: string
+  light?: boolean
+}
+
+export const trustedClients: TrustedClient[] = [
+  { file: 'ministere-equipement-full.png',                 name: "Ministère de l'Équipement et de l'Habitat",         url: 'https://www.mehat.gov.tn/' },
+  { file: 'aefe.png',                                      name: 'AEFE',                                              url: 'https://www.aefe.gouv.fr/' },
+  { file: 'office-tourisme.png',                           name: 'Office National du Tourisme Tunisien',              url: 'https://www.discovertunisia.com/' },
+  { file: 'poste-tunisienne.png',                          name: 'La Poste Tunisienne',                               url: 'https://www.poste.tn/' },
+  { file: 'bt.png',                                        name: 'Banque de Tunisie',                                 url: 'https://www.bt.com.tn/' },
+  { file: 'zitouna-takaful.png',                           name: 'Zitouna Takaful',                                   url: 'https://zitounatakaful.com/fr' },
+  { file: 'foire-sousse.png',                              name: 'Foire Internationale de Sousse',                    url: 'https://www.fis-sousse.tn/' },
+  { file: 'hopital-sahloul.webp',                          name: 'Hôpital Sahloul Sousse',                            url: 'http://hopitalsahloul.tn/' },
+  { file: 'polyclinique-corniche.png',                     name: 'Polyclinique La Corniche',                          url: 'http://www.clinique-lacorniche.com/' },
+  { file: 'centre-international-carthage-medical.webp',    name: 'Centre International Carthage Médical',             url: 'https://carthagemedical.com.tn/' },
+  { file: 'logo-essalem-clinic.png',                       name: 'Clinique Essalem',                                  url: 'https://www.clinique-essalem.com/' },
+  { file: 'leoni.png',                                     name: 'Leoni',                                             url: 'https://www.leoni-tunisia.com/' },
+  { file: 'movenpick.svg',                                 name: 'Mövenpick',                                         url: 'https://movenpick.accor.com/en/africa/tunisia.html' },
+  { file: 'unimed.png',                                    name: 'Unimed Laboratoires',                               url: 'https://www.unimed.com.tn/' },
+  { file: 'rosa-beach.png',                                name: 'Rosa Beach Thalasso & Spa',                         url: 'https://rosabeach.tn/fr-fr/' },
+  { file: 'tej-marhaba.png',                               name: 'Tej Marhaba',                                       url: 'https://tejmarhaba.tn/' },
+  { file: 'riviera_hotel.png',                             name: 'Riviera Hotel',                                     url: 'https://riviera.tn/' },
+  { file: 'Magic_Hotels_&_Resorts.jpg',                    name: 'Magic Hotels & Resorts',                            url: 'https://www.magichotelsandresorts.com/' },
+  { file: 'kaschke_components_tunisie.jpeg',               name: 'Kaschke Components Tunisie',                        url: 'https://bourns.com/products/magnetic-products/kaschke-components/kaschke-capabilities' },
+  { file: 'iffco.png',                                     name: 'Iffco',                                             url: 'https://iffco.com/' },
+  { file: 'ifrisol-logo.png',                              name: 'Ifri-Sol',                                          url: 'https://www.ifrisol.solar/' },
+  { file: 'givi-social.png',                               name: 'Givi',                                              url: 'https://givi.it/' },
+  { file: 'jomaa.png',                                     name: 'Jomaa',                                             url: 'https://jomaa.com.tn/' },
+  { file: 'arco.jpg',                                      name: 'Arco',                                              url: 'https://www.arco-sa.com/' },
+  { file: 'STS.png',                                       name: 'Société de Transport du Sahel',                     url: 'https://www.ststn.com/' },
+  { file: 'stp.png',                                       name: 'Société Tunisienne de Polystyrène',                 url: 'https://www.stp.com.tn/' },
+  { file: 'stts.jpeg',                                     name: 'Société Tunisienne de Traitement de Surfaces',      url: 'https://www.stts.com.tn/' },
+  { file: 'azurex_sarl.jpeg',                              name: 'Azurex',                                            url: 'https://www.azurex.com.tn/' },
+  { file: 'cogeb.png',                                     name: 'Cogeb Immobilière',                                 url: 'https://www.cogebgroupe.com/' },
+  { file: 'crc.png',                                       name: 'Comptoirs Réunis du Centre',                        url: 'http://crc.tn/' },
+  { file: 'nesspri.png',                                   name: 'Nesspri Promotion Immobilière',                     url: 'https://nesspri.com/' },
+  { file: 'spiz.jpeg',                                     name: 'SPIZ',                                              url: 'https://www.spiz.tn/' },
+  { file: 'bh-immo.png',                                    name: 'BH Immobilière',                                    url: 'https://www.bhimmo.tn/' },
+  { file: 'logo-zayatine-fr.jpg',                          name: 'Clinique Les Oliviers',                             url: 'https://www.cliniquelesoliviers.net/' },
+]
+
 export const projectStats = [
   { value: 200, suffix: '+', label: 'Projets réalisés' },
   { value: 25, suffix: '+', label: "Années d'expérience" },
