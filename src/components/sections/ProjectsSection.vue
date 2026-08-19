@@ -7,7 +7,7 @@ import BoltDivider from '../BoltDivider.vue'
 
 const { t, tm } = useI18n()
 
-const clientLogoFiles = import.meta.glob('../../assets/clients/*.{png,jpg,jpeg,svg,webp}', {
+const clientLogoFiles = import.meta.glob('../../assets/clients-no-bg/*.{png,jpg,jpeg,svg,webp}', {
   eager: true,
   import: 'default',
 }) as Record<string, string>
@@ -258,19 +258,21 @@ onMounted(() => {
 }
 
 .trust__rail {
+  direction: ltr;
   position: relative;
   overflow: hidden;
-  padding-block: 2.2rem;
-  border-top: 1px solid rgba(247, 246, 242, 0.16);
-  border-bottom: 1px solid rgba(247, 246, 242, 0.16);
-  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  padding-block: 3rem;
+  border-radius: 28px;
+  background: linear-gradient(180deg, var(--paper) 0%, var(--paper-dim) 100%);
+  box-shadow: 0 40px 80px -36px rgba(var(--navy-night-rgb), 0.6);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
 }
 
 .trust__track {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 3rem;
   width: max-content;
   animation: trust-scroll 70s linear infinite;
 }
@@ -284,27 +286,12 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: clamp(10.5rem, 12vw, 13.5rem);
-  height: clamp(6.4rem, 7.6vw, 8rem);
-  padding: 1.2rem 1.8rem;
+  width: clamp(11rem, 13vw, 15.5rem);
+  height: clamp(7rem, 8vw, 9rem);
+  padding: 0.6rem;
   position: relative;
-  overflow: hidden;
-  border-radius: 20px;
-  background: linear-gradient(155deg, rgba(var(--paper-rgb), 0.98) 0%, rgba(var(--paper-rgb), 0.86) 100%);
-  border: 1px solid rgba(var(--paper-rgb), 0.5);
-  box-shadow:
-    0 1px 2px rgba(var(--navy-night-rgb), 0.22),
-    0 22px 36px -22px rgba(var(--navy-night-rgb), 0.65);
   text-decoration: none;
-  transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out), border-color 0.35s var(--ease-out);
-}
-
-.trust__wagon::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.6), transparent 55%);
-  pointer-events: none;
+  transition: transform 0.35s var(--ease-out);
 }
 
 a.trust__wagon {
@@ -312,51 +299,26 @@ a.trust__wagon {
 }
 
 .trust__wagon:hover {
-  transform: translateY(-6px);
-  border-color: rgba(var(--volt-rgb), 0.55);
-  box-shadow:
-    0 1px 2px rgba(var(--navy-night-rgb), 0.22),
-    0 26px 44px -20px rgba(var(--navy-night-rgb), 0.7),
-    0 0 0 1px rgba(var(--volt-rgb), 0.3) inset;
+  transform: translateY(-4px) scale(1.05);
 }
 
 .trust__wagon--light {
-  background: rgba(var(--paper-rgb), 0.07);
-  border-color: rgba(var(--paper-rgb), 0.2);
-  box-shadow: none;
-}
-
-.trust__wagon--light::before {
-  display: none;
-}
-
-.trust__wagon--light:hover {
-  transform: translateY(-6px);
-  border-color: rgba(var(--volt-rgb), 0.5);
-  box-shadow: 0 0 0 1px rgba(var(--volt-rgb), 0.25) inset;
+  background: var(--navy);
+  border-radius: 16px;
+  padding: 1rem 1.4rem;
 }
 
 .trust__logo {
   position: relative;
-  max-height: 58%;
-  max-width: 78%;
+  max-height: 86%;
+  max-width: 92%;
   width: auto;
   height: auto;
   object-fit: contain;
-  filter: grayscale(1) opacity(0.75);
-  transition: filter 0.35s var(--ease-out);
-}
-
-.trust__wagon:hover .trust__logo {
-  filter: grayscale(0) opacity(1);
 }
 
 .trust__wagon--light .trust__logo {
-  filter: brightness(0) invert(1) opacity(0.6);
-}
-
-.trust__wagon--light:hover .trust__logo {
-  filter: brightness(0) invert(1) opacity(0.9);
+  filter: brightness(0) invert(1);
 }
 
 @keyframes trust-scroll {
