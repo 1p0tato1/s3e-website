@@ -1,6 +1,6 @@
 const fr = {
   meta: {
-    title: "S3E — Bureau d'Études | Structure, Électricité, Sécurité Incendie — Sousse",
+    title: "S3E | Bureau d'Études",
     description:
       "S3E, bureau d'études technique à Sousse depuis 2000. Structure & génie civil, VRD, électricité, sécurité incendie. Plus de 200 projets réalisés en Tunisie et à l'international.",
   },
