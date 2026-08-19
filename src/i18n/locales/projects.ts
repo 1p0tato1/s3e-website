@@ -19,7 +19,7 @@ export interface ProjectsMessages {
 
 export const projectsFr: ProjectsMessages = {
   eyebrow: 'Réalisations',
-  titleTemplate: 'Plus de 200 projets livrés en {n}+ ans',
+  titleTemplate: 'Plus de 500 projets livrés en {n}+ ans',
   trustEyebrow: 'Ils nous ont fait confiance',
   stats: ['Projets réalisés', "Années d'expérience", "Secteurs d'intervention"],
   categories: {
@@ -226,7 +226,7 @@ export const projectsFr: ProjectsMessages = {
 
 export const projectsAr: ProjectsMessages = {
   eyebrow: 'الإنجازات',
-  titleTemplate: 'أكثر من 200 مشروع منجز خلال أكثر من {n} سنة',
+  titleTemplate: 'أكثر من 500 مشروع منجز خلال أكثر من {n} سنة',
   trustEyebrow: 'وثقوا بنا',
   stats: ['مشروع منجز', 'سنة خبرة', 'قطاعات تدخل'],
   categories: {

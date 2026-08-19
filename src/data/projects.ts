@@ -67,7 +67,7 @@ export interface ProjectStat {
 }
 
 export const projectStats: ProjectStat[] = [
-  { value: 200, suffix: '+' },
+  { value: 500, suffix: '+' },
   { value: 25, suffix: '+' },
   { value: 9, suffix: '' },
 ]

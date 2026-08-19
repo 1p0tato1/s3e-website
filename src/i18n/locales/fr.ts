@@ -26,7 +26,7 @@ const fr = {
   },
 
   hero: {
-    eyebrow: "Bureau d'études · Sousse, Tunisie · depuis 2000",
+    eyebrow: "Bureau d'études d'ingénierie · Sousse, Tunisie · depuis 2000",
     titleWords: ['S*3*E :', 'Société', 'Etudes', 'Equipements', 'Executions'],
     ledeStrong: 'Structure & Génie Civil, VRD, Électricité, Sécurité Incendie',
     ledeText:
@@ -40,7 +40,7 @@ const fr = {
   about: {
     eyebrow: 'Le bureau',
     statementHtml:
-      "Bureau d'Études Technique S*3*E, fondé en 2000 à Sousse. <br /> 4 spécialités, 1 exigence : <br /> des ouvrages <em>sûrs</em>, <em>conformes</em> et <em>livrés</em>.",
+      "Bureau d'Études Technique S*3*E, fondé en 2000 à Sousse <br /> 4 spécialités, 1 exigence : <br /> des ouvrages <em>sûrs</em>, <em>conformes</em> et <em>livrés</em>",
     textP1:
       "Agréé par le <strong>Ministère de l'Équipement et de l'Habitat</strong>, S*3*E intervient sur 4 domaines complémentaires : Structure & Génie Civil, VRD, Électricité, Sécurité Incendie.",
     textP2:
@@ -55,7 +55,7 @@ const fr = {
 
   expertise: {
     eyebrow: "Domaines d'expertise",
-    title: 'Quatre pôles, un seul bureau.',
+    title: 'Quatre pôles, un seul bureau',
     indexLabel: 'Expertise {n}',
     domains: {
       structure: {
@@ -94,7 +94,7 @@ const fr = {
       name: 'Sofiane Fayala',
       title: 'Ingénieur Conseil — Expert Judiciaire auprès des Tribunaux',
       specialties: ['Électricité', 'Sécurité Incendie'],
-      bio: "Ingénieur Principal en Génie Électrique diplômé de l'ENIM (1996), Sofiane Fayala fonde S3E en 2000 et en assure la direction depuis. Expert Judiciaire auprès des tribunaux depuis 2023, il s'est formé auprès de grands industriels internationaux — Schneider Electric (France), ABB (Allemagne), Fermax (Espagne) — pour affiner son expertise en électricité et en sécurité incendie.",
+      bio: "Ingénieur Principal en Génie Électrique diplômé de l'ENIM (1996), Sofiane Fayala fonde S3E en 2000 et en assure la direction depuis. Expert Judiciaire auprès des tribunaux depuis 2023, il s'est formé auprès de grands industriels internationaux pour affiner son expertise en électricité et en sécurité incendie.",
     },
     imen: {
       name: 'Imen Fayala Grissi',
@@ -106,7 +106,7 @@ const fr = {
 
   contact: {
     eyebrow: 'Contact',
-    title: 'Parlons de votre projet.',
+    title: 'Parlons de votre projet',
     formEyebrow: 'Écrivez-nous',
     fieldName: 'Nom',
     fieldEmail: 'Email',
@@ -127,7 +127,7 @@ const fr = {
   },
 
   footer: {
-    copyright: '© {year} S3E - Société Études Équipements Exécutions.',
+    copyright: '© {year} S3E - Société Études Équipements Exécutions',
     tagline: 'Structure · VRD · Électricité · Sécurité Incendie',
   },
 }
