@@ -23,6 +23,8 @@ export interface TrustedClient {
 }
 
 export const trustedClients: TrustedClient[] = [
+  { id: 'paul', file: 'paul.png', url: 'https://www.paul.fr/' },
+  { id: 'attijari-bank', file: 'attijari.png', url: 'https://www.attijaribank.com.tn/' },
   { id: 'ministere-equipement', file: 'ministere-equipement-full.png', url: 'https://www.mehat.gov.tn/' },
   { id: 'aefe', file: 'aefe.png', url: 'https://www.aefe.gouv.fr/' },
   { id: 'office-tourisme', file: 'office-tourisme.png', url: 'https://www.discovertunisia.com/' },
