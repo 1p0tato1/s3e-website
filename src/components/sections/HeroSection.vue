@@ -12,7 +12,6 @@ const titleLines = ref<HTMLElement[]>([])
 const lede = ref<HTMLElement | null>(null)
 const actions = ref<HTMLElement | null>(null)
 const eyebrow = ref<HTMLElement | null>(null)
-const stripes = ref<HTMLElement[]>([])
 const panel = ref<HTMLElement | null>(null)
 const heroRoot = ref<HTMLElement | null>(null)
 
@@ -28,11 +27,6 @@ onMounted(() => {
     )
     .from(lede.value, { opacity: 0, y: 16, duration: 0.7 }, '-=0.4')
     .from(actions.value, { opacity: 0, y: 16, duration: 0.7 }, '-=0.5')
-    .from(
-      stripes.value,
-      { scaleX: 0, transformOrigin: 'left center', duration: 0.9, stagger: 0.06 },
-      '-=1.1',
-    )
 
   if (panel.value && heroRoot.value) {
     gsap.to(panel.value, {
@@ -51,16 +45,6 @@ onMounted(() => {
 
 <template>
   <section id="top" ref="heroRoot" class="hero">
-    <div class="hero__bg" aria-hidden="true">
-      <span
-        v-for="n in 7"
-        :key="n"
-        ref="stripes"
-        class="hero__bg-line"
-        :style="{ top: `${8 + n * 11}%` }"
-      />
-    </div>
-
     <div class="container hero__inner">
       <div class="hero__copy">
         <p ref="eyebrow" class="eyebrow">{{ t('hero.eyebrow') }}</p>
@@ -92,9 +76,6 @@ onMounted(() => {
       </div>
 
       <div ref="panel" class="hero__panel">
-        <div class="hero__panel-stripes" aria-hidden="true">
-          <span v-for="n in 9" :key="n" />
-        </div>
         <img src="../../assets/S3EE-NoBG.png" :alt="t('hero.panelAlt')" class="hero__panel-image">
       </div>
     </div>
@@ -116,21 +97,6 @@ onMounted(() => {
   padding-top: 5rem;
   overflow: clip;
   background: var(--paper);
-}
-
-.hero__bg {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.hero__bg-line {
-  position: absolute;
-  inset-inline-start: 0;
-  width: 62%;
-  height: 1px;
-  background: linear-gradient(90deg, rgba(var(--navy-rgb), 0.16), transparent);
 }
 
 .hero__inner {
@@ -212,25 +178,10 @@ onMounted(() => {
   min-height: 320px;
   border-radius: var(--radius);
   background: var(--paper);
-  border: 1px solid rgba(var(--navy-rgb), 0.12);
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.hero__panel-stripes {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  padding: 1.5rem;
-}
-
-.hero__panel-stripes span {
-  height: 1px;
-  background: rgba(var(--navy-rgb), 0.1);
 }
 
 .hero__panel-image {

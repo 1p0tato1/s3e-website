@@ -120,10 +120,19 @@ onMounted(() => {
   font-family: var(--font-mono);
   font-size: var(--fs-micro);
   letter-spacing: 0.04em;
-  color: rgba(20, 20, 20, 0.5);
+  color: var(--paper);
+  background: var(--navy);
   padding: 0.3em 0.7em;
-  border: 1px solid rgba(20, 20, 20, 0.16);
+  border: 1px solid var(--navy);
   border-radius: 999px;
+  transition:
+    background-color 0.4s var(--ease-out),
+    color 0.4s var(--ease-out);
+}
+
+.expertise__tags li:hover {
+  background: var(--paper);
+  color: var(--navy);
 }
 
 @media (min-width: 860px) {
@@ -143,13 +152,6 @@ onMounted(() => {
   }
 
   .expertise__tags li:hover {
-    color: var(--volt);
-    border-color: var(--volt);
-    padding: 0.3em 0.7em;
-    transition: background-color 0.4s var(--ease-out);
-    transition: border-color 0.4s var(--ease-out);
-    transition: text-transform 0.4s var(--ease-out);
-    transition: padding 0.4s var(--ease-out);
     cursor: pointer;
   }
 }
