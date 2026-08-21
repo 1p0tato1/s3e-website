@@ -98,9 +98,9 @@ const fr = {
     },
     imen: {
       name: 'Imen Fayala Grissi',
-      title: 'Ingénieur Conseil Agréé & Expert Judiciaire | Génie Civil',
-      specialties: ['Génie Civil'],
-      bio: "Ingénieure Principale en Génie Civil diplômée de [ÉCOLE] ([ANNÉE]), Imen Fayala Grissi dirige le pôle Génie Civil de S3E depuis sa création. Experte Judiciaire auprès des tribunaux, elle s'est perfectionnée en calcul des structures en béton armé et des ouvrages porteurs, [ex: à travers des collaborations avec des bureaux d'études internationaux], et intervient régulièrement sur des dossiers d'expertise technique et de contentieux.",
+      title: 'Ingénieur Conseil — Expert Judiciaire auprès des Tribunaux',
+      specialties: ['Structure', 'Génie Civil', 'VRD'],
+      bio: "Ingénieure Principale en Génie Civil diplômée de l'ENIG (2000), Imen Fayala Grissi dirige le pôle Génie Civil de S3E depuis sa création. Experte Judiciaire auprès des tribunaux, elle s'est perfectionnée en calcul des structures en béton armé et des ouvrages porteurs, et intervient régulièrement sur des dossiers d'expertise technique et de contentieux.",
     },
   },
 
